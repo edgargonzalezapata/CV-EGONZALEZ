@@ -24,45 +24,37 @@ app.get('/export-pdf', async (req, res) => {
         console.log('🔄 Iniciando generación de PDF...');
 
         const browser = await puppeteer.launch({
-            headless: true,
+            headless: true, // Modo legacy para mayor estabilidad en Windows
             args: [
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
+                '--disable-gpu',
                 '--disable-dev-shm-usage',
-                '--disable-accelerated-2d-canvas',
-                '--no-first-run',
-                '--no-zygote',
-                '--single-process',
-                '--disable-gpu'
+                '--no-first-run'
             ]
         });
 
         const page = await browser.newPage();
 
-        // Cargar la página del CV
+        // Cargar la plantilla de impresión dedicada
         const host = req.get('host');
-        const url = `http://${host}`;
+        const url = `http://${host}/print.html`;
 
-        console.log(`📄 Cargando CV desde: ${url}`);
+        console.log(`📄 Cargando Plantilla de Impresión desde: ${url}`);
 
         // Configurar viewport
         await page.setViewport({ width: 1200, height: 800 });
 
         await page.goto(url, {
-            waitUntil: ['load', 'networkidle0'],
+            waitUntil: 'domcontentloaded', // Esperar menos tiempo, solo al DOM
             timeout: 60000
         });
 
         // Esperar que el contenido se cargue completamente
-        await page.waitForSelector('.cv-container', { timeout: 10000 });
-
-        // Ocultar el botón de exportar antes de generar PDF
-        await page.addStyleTag({
-            content: '.export-btn { display: none !important; }'
-        });
+        await page.waitForSelector('header', { timeout: 10000 });
 
         // Esperar un momento para que se apliquen los estilos
-        await page.waitForTimeout(1000);
+        await new Promise(r => setTimeout(r, 1000));
 
         console.log('🎨 Generando PDF en formato carta...');
 
@@ -84,12 +76,23 @@ app.get('/export-pdf', async (req, res) => {
 
         console.log('✅ PDF generado exitosamente');
 
-        // Configurar headers para descarga
-        res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename=Edgar_Gonzalez_Zapata_CV.pdf');
-        res.setHeader('Content-Length', pdf.length);
+        // Guardar PDF en disco primero para asegurar integridad
+        const fs = require('fs');
+        const pdfPath = path.join(__dirname, 'public', 'cv_generated.pdf');
+        fs.writeFileSync(pdfPath, pdf);
 
-        res.send(pdf);
+        console.log(`✅ PDF guardado en disco: ${pdfPath}`);
+
+        // Enviar archivo usando métodos optimizados de Express
+        res.download(pdfPath, 'Edgar_Gonzalez_Zapata_CV.pdf', (err) => {
+            if (err) {
+                console.error('❌ Error enviando archivo:', err);
+            } else {
+                console.log('📤 PDF enviado exitosamente al cliente');
+                // Opcional: eliminar archivo después de enviar
+                // fs.unlinkSync(pdfPath);
+            }
+        });
 
     } catch (error) {
         console.error('❌ Error generando PDF:', error);
@@ -109,6 +112,7 @@ app.use((req, res) => {
 const server = app.listen(PORT, () => {
     const actualPort = server.address().port;
     console.log(`🚀 Servidor iniciado en http://localhost:${actualPort}`);
+    console.log(`✅ VERSIÓN ACTUALIZADA: 2.0 (Fix Wait v2)`);
     console.log(`📄 CV disponible en: http://localhost:${actualPort}`);
     console.log(`🔧 Modo: ${process.env.NODE_ENV || 'development'}`);
     console.log(`⚡ Puerto asignado automáticamente: ${actualPort}`);

@@ -233,18 +233,44 @@ body {
 
 .project-highlight {
     margin: 12px 0;
+    padding: 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #e1e4e8;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-weight: 700;
+    color: #24292f;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.project-highlight::before {
+    content: none;
+}
+
+.project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 12px 0;
     padding: 10px;
-    background: #fff8dc;
+    background: white;
     border-radius: 6px;
-    border-left: 3px solid #d1a243;
+    border: 1px solid #d1d9e0;
+}
+
+.stack-label {
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     font-weight: 600;
     color: #24292f;
     font-size: 0.85rem;
+    margin-right: 4px;
 }
 
-.project-highlight::before {
-    content: '🚀 ';
+.stack-label::before {
+    content: '💻 ';
 }
 
 .achievements {
@@ -472,7 +498,8 @@ body {
         overflow: visible !important;
     }
 
-    .sidebar, .content {
+    .sidebar,
+    .content {
         overflow: visible !important;
     }
 
@@ -558,6 +585,15 @@ body {
         font-size: 0.95rem;
     }
 
+    .project-stack {
+        padding: 8px;
+        gap: 4px;
+    }
+
+    .stack-label {
+        font-size: 0.8rem;
+    }
+
     .profile-text {
         padding: 12px;
         font-size: 0.9rem;
@@ -591,7 +627,8 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .sidebar, .content {
+    .sidebar,
+    .content {
         padding: 12px;
     }
 
@@ -615,23 +652,28 @@ body {
 
 @page {
     size: Letter;
-    margin: 0.5in;
+    margin: 0.4in;
+    /* Márgenes estrechos para aprovechar espacio */
 }
 
-/* Estilos para PDF */
+/* Estilos globales de impresión optimizados */
 @media print {
     body {
         background: white !important;
-        font-size: 11px !important;
+        font-size: 10pt !important;
+        /* Reducir fuente ligeramente */
         padding: 0 !important;
         margin: 0 !important;
         display: block !important;
+        color: black !important;
     }
 
+    /* Ocultar elementos de UI */
     .export-btn {
         display: none !important;
     }
 
+    /* Contenedor principal sin sombras ni bordes */
     .cv-container {
         box-shadow: none !important;
         border: none !important;
@@ -640,76 +682,228 @@ body {
         height: auto !important;
         margin: 0 !important;
         border-radius: 0 !important;
-        min-height: auto !important;
         display: block !important;
     }
 
-    .main-content {
-        grid-template-columns: 300px 1fr !important;
-        overflow: visible !important;
-        display: grid !important;
-    }
-
-    .sidebar {
-        overflow: visible !important;
-        padding: 16px !important;
-    }
-
-    .content {
-        overflow: visible !important;
-        padding: 16px !important;
-    }
-
+    /* Header compacto */
     .header {
-        background: #1f2937 !important;
-        color: white !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        padding: 16px !important;
-    }
-
-    .skill-tag {
-        background: #238636 !important;
-        color: white !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        font-size: 0.6rem !important;
-        padding: 2px 4px !important;
-    }
-
-    .section-title {
-        border-bottom: 2px solid #fd7e14 !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        font-size: 0.9rem !important;
+        background: white !important;
+        /* Fondo blanco para ahorrar tinta y ver mejor */
+        color: black !important;
+        padding: 10px 0 !important;
+        border-bottom: 2px solid #333 !important;
         margin-bottom: 10px !important;
     }
 
-    .experience-item {
-        margin-bottom: 16px !important;
-        padding: 12px !important;
-        page-break-inside: avoid !important;
+    .header::before {
+        display: none !important;
     }
 
-    .skills-category {
-        margin-bottom: 10px !important;
-        padding: 8px !important;
-        page-break-inside: avoid !important;
-    }
+    /* Quitar gradiente decorativo */
 
     .name {
-        font-size: 1.5rem !important;
+        font-size: 18pt !important;
+        color: black !important;
     }
 
     .title {
-        font-size: 0.85rem !important;
+        font-size: 11pt !important;
+        color: #444 !important;
+        margin-bottom: 8px !important;
+    }
+
+    .contact-info {
+        gap: 8px !important;
+        font-size: 9pt !important;
     }
 
     .contact-item {
-        font-size: 0.75rem !important;
+        padding: 0 !important;
+        color: #333 !important;
     }
 
     .stats-bar {
-        font-size: 0.7rem !important;
+        display: none !important;
+    }
+
+    /* Ocultar stats en PDF para ganar espacio */
+
+    /* Layout en Grid */
+    .main-content {
+        display: grid !important;
+        grid-template-columns: 28% 70% !important;
+        /* Ajustar proporción */
+        gap: 2% !important;
+        margin-top: 0 !important;
+    }
+
+    /* Sidebar limpio */
+    .sidebar {
+        background: white !important;
+        /* Fondo blanco vital para evitar "barra gris vacía" */
+        border-right: 1px solid #eee !important;
+        padding: 0 !important;
+        padding-right: 10px !important;
+    }
+
+    .content {
+        padding: 0 !important;
+        background: white !important;
+    }
+
+    /* Secciones compactas */
+    .section {
+        margin-bottom: 15px !important;
+        page-break-inside: avoid !important;
+        /* Evitar partir secciones pequeñas */
+        break-inside: avoid !important;
+    }
+
+    .section-title {
+        font-size: 12pt !important;
+        margin-bottom: 8px !important;
+        padding-bottom: 2px !important;
+        color: black !important;
+        border-bottom: 1px solid #000 !important;
+    }
+
+    .section-title::before {
+        content: '' !important;
+    }
+
+    /* Quitar decoración de título */
+
+    /* Bloques de contenido INTOCABLES (no se parten) */
+    .project-block,
+    .education-item,
+    .skills-category,
+    .info-item {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        margin-bottom: 12px !important;
+        padding: 0 !important;
+        border: none !important;
+        background: none !important;
+    }
+
+    /* El contenedor principal de una experiencia SÍ puede partirse entre páginas
+       para aprovechar el espacio, pero sus hijos (project-block) no. */
+    .experience-item {
+        page-break-inside: auto !important;
+        break-inside: auto !important;
+        margin-bottom: 20px !important;
+        border-left: none !important;
+    }
+
+    /* Asegurar que el título del trabajo no quede huérfano al final de la hoja */
+    .job-title,
+    .company,
+    .period {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+    }
+
+    /* Textos descriptivos */
+    .profile-text {
+        font-size: 9pt !important;
+        line-height: 1.4 !important;
+        padding: 0 !important;
+        border: none !important;
+        background: none !important;
+    }
+
+    /* Skills compactos */
+    .skills-category h4 {
+        margin: 4px 0 !important;
+        font-size: 9pt !important;
+    }
+
+    .skills-list {
+        gap: 4px !important;
+    }
+
+    .skill-tag {
+        font-size: 8pt !important;
+        padding: 1px 4px !important;
+        border: 1px solid #ccc !important;
+        background: white !important;
+        color: black !important;
+        font-weight: 600 !important;
+    }
+
+    /* Proyectos */
+    .project-highlight {
+        background: none !important;
+        border: none !important;
+        padding: 0 !important;
+        font-weight: bold !important;
+        color: black !important;
+        margin: 6px 0 2px 0 !important;
+        font-size: 10pt !important;
+    }
+
+    .project-highlight::before {
+        display: none !important;
+    }
+
+    .project-stack {
+        background: none !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 2px 0 4px 0 !important;
+    }
+
+    .stack-label {
+        display: none !important;
+    }
+
+    /* Ahorrar espacio ocultando "Stack:" */
+
+    /* Listas y textos */
+    .achievements li {
+        margin-bottom: 2px !important;
+        font-size: 9pt !important;
+        padding-left: 12px !important;
+        color: #333 !important;
+    }
+
+    .achievements li::before {
+        content: '•' !important;
+        color: black !important;
+        font-size: 10pt !important;
+        left: 0 !important;
+        font-weight: normal !important;
+    }
+
+    .job-title {
+        font-size: 11pt !important;
+        margin: 0 !important;
+    }
+
+    .company {
+        font-size: 10pt !important;
+        color: #444 !important;
+    }
+
+    .period {
+        font-size: 9pt !important;
+        background: none !important;
+        padding: 0 !important;
+        color: #666 !important;
+        font-style: italic !important;
+    }
+
+    .job-description {
+        margin-bottom: 6px !important;
+        font-size: 9pt !important;
+    }
+
+    /* Manejo de viudas y huérfanas */
+    p,
+    li,
+    h3,
+    h4 {
+        orphans: 3;
+        widows: 3;
     }
 }

@@ -1,0 +1,295 @@
+/* CSS Optimizado para Impresión (Letter Size) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@page {
+    size: Letter;
+    margin: 0.5in;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 10pt;
+    line-height: 1.4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background: white;
+}
+
+/* Header Compacto */
+/* Header Optimizado (2 Columnas) */
+/* Header Profesional con Diseño Mejorado */
+/* Header Profesional - Minimalista y Limpio */
+header {
+    border-bottom: 2px solid #333;
+    /* Línea sólida simple */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.header-main {
+    flex: 1;
+}
+
+h1.name {
+    font-size: 24pt;
+    font-weight: 700;
+    color: #000;
+    margin: 0 0 5px 0;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -0.5px;
+}
+
+.title {
+    font-size: 11pt;
+    color: #444;
+    /* Gris oscuro neutro */
+    font-weight: 500;
+    margin: 0;
+}
+
+.header-contact {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5pt;
+    color: #444;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.header-profile {
+    font-size: 10pt;
+    line-height: 1.4;
+    color: #333;
+    text-align: justify;
+    margin-top: 5px;
+    border-top: 1px dotted #ccc;
+    /* Separación sutil */
+    padding-top: 8px;
+}
+
+/* Secciones */
+section {
+    margin-bottom: 20px;
+    break-inside: auto;
+}
+
+h2.section-title {
+    font-size: 14pt;
+    font-weight: 700;
+    color: #000;
+    border-bottom: 2px solid #000;
+    /* Borde negro fuerte */
+    padding-bottom: 4px;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+h2.section-title::before {
+    content: '';
+    /* Sin iconos decorativos */
+    margin: 0;
+}
+
+/* Texto de Perfil */
+.profile-text {
+    text-align: justify;
+    margin-bottom: 10px;
+    font-size: 9.5pt;
+}
+
+/* Grid de Skills Mejorado */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 Columnas */
+    gap: 8px;
+}
+
+.skill-category {
+    margin-bottom: 4px;
+    break-inside: avoid;
+}
+
+.skill-category h3 {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #444;
+    margin: 0 0 2px 0;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+}
+
+.tag {
+    font-size: 7.5pt;
+    background: #f0f3f6;
+    border: 1px solid #d1d9e0;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Experiencia - EL NÚCLEO */
+.experience-item {
+    margin-bottom: 15px;
+    /* Permitimos partir el ítem de experiencia grande entre páginas */
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2px;
+    break-after: avoid;
+    /* Mantener encabezado con la descripción */
+}
+
+.job-role {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #000;
+}
+
+.job-company {
+    font-weight: 500;
+    color: #238636;
+    font-size: 10pt;
+}
+
+.job-dates {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5pt;
+    color: #666;
+    text-align: right;
+}
+
+.job-description {
+    margin-bottom: 6px;
+    font-style: italic;
+    color: #444;
+    font-size: 9.5pt;
+}
+
+/* Proyectos dentro de Experiencia */
+.project-card {
+    border-left: 2px solid #888;
+    /* Borde gris neutro */
+    padding-left: 12px;
+    margin-bottom: 12px;
+    break-inside: auto;
+    background: none;
+    /* Sin fondo */
+    padding: 0 0 0 12px;
+    border-radius: 0;
+    margin-left: 0;
+}
+
+.project-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.project-stack {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+ul.achievements {
+    margin: 4px 0 0 0;
+    padding-left: 16px;
+}
+
+ul.achievements li {
+    font-size: 9.5pt;
+    margin-bottom: 2px;
+    padding-left: 4px;
+}
+
+/* Educación en 2 Columnas */
+.education-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.education-item {
+    break-inside: avoid;
+}
+
+.degree {
+    font-weight: 700;
+    font-size: 10pt;
+}
+
+.school {
+    color: #555;
+    font-size: 9pt;
+}
+
+.year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9pt;
+    color: #777;
+}
+
+/* Grid de Info Adicional */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.info-box {
+    break-inside: avoid;
+    background: none;
+    padding: 0;
+    border: none;
+}
+
+.info-box h3 {
+    margin: 0 0 4px 0;
+    font-size: 9pt;
+    color: #238636;
+}
+
+.info-box p {
+    margin: 0;
+    font-size: 9pt;
+}
